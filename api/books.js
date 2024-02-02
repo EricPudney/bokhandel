@@ -7,7 +7,7 @@ export default function (server) {
       const books = await Book.find().populate("Author_id");
       res.status(200).json(books);
     } catch (error) {
-      res.status(500).json({ message: "Something went wrong", error });
+      res.status(500).json({ message: "Something went wrong" });
     }
   });
 
@@ -21,21 +21,25 @@ export default function (server) {
   });
 
   server.post("/api/books", async (req, res) => {
-    const newBook = new Book({
-      Title: req.body.Title,
-      Description: req.body.Description,
-      Author_id: req.body.Author_id,
-    });
-    try {
-      const result = await newBook.save();
+    if (req.session.login) {
+      const newBook = new Book({
+        Title: req.body.Title,
+        Description: req.body.Description,
+        Author_id: req.body.Author_id,
+      });
+      try {
+        const result = await newBook.save();
 
-      const author = await Author.findById(req.body.Author_id);
-      author.Books.push(newBook._id);
-      await author.save();
+        const author = await Author.findById(req.body.Author_id);
+        author.Books.push(newBook._id);
+        await author.save();
 
-      res.status(201).json(result);
-    } catch (error) {
-      res.status(500).json({ message: "Unable to post book." });
+        res.status(201).json(result);
+      } catch (error) {
+        res.status(500).json({ message: "Unable to post book." });
+      }
+    } else {
+      res.json({ message: "Please log in" });
     }
   });
 
@@ -61,7 +65,7 @@ export default function (server) {
       if (!deletedBook) {
         return res.status(404).json({ message: "Book not found" });
       }
-      res.json({ message: "Book deleted" }); // Bekräftelse på att användaren har raderats.
+      res.json({ message: "Book deleted" });
     } catch (error) {
       res.status(500).json({ message: "It's all gone to hell." });
     }

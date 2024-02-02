@@ -7,7 +7,7 @@ export default function (server) {
       const authors = await Author.find().populate("Books");
       res.status(200).json(authors);
     } catch (error) {
-      res.status(500).json({ message: "Oopsie daisy", error });
+      res.status(500).json({ message: "Oops-a-daisy" });
     }
   });
 
@@ -35,7 +35,7 @@ export default function (server) {
 
       res.status(201).json(result);
     } catch (error) {
-      res.status(500).json({ message: "Unable to create author.", error });
+      res.status(500).json({ message: "Unable to create author." });
     }
   });
 
@@ -51,7 +51,7 @@ export default function (server) {
       }
       res.json(updatedAuthor);
     } catch (error) {
-      res.status(500).json({ message: "It's all gone to hell." });
+      res.status(500).json({ message: "It's all gone to hell" });
     }
   });
 
@@ -63,7 +63,7 @@ export default function (server) {
       }
       res.json({ message: "Author deleted" });
     } catch (error) {
-      res.status(500).json({ message: "It's all gone to hell." });
+      res.status(500).json({ message: "It's all gone to hell" });
     }
   });
 }
