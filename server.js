@@ -5,7 +5,7 @@ import apiRegister from "./api-register.js";
 
 const server = express();
 server.use(express.json());
-server.use(express.static("/"));
+server.use(express.static("./"));
 
 server.use(
   session({

@@ -1,17 +1,17 @@
 import booklist from "./pages/booklist.js";
+import home from "./pages/home.js";
+import add from "./pages/add.js";
 
 async function route() {
   switch (location.hash.replace("#", "")) {
     case "booklist":
-      console.log("booklist");
       $("main").html(await booklist());
       break;
     case "":
-      console.log("HOME");
-      //$("main").html(home());
+      $("main").html(await home());
       break;
-    case "contact":
-      // $("main").html(contact());
+    case "add":
+      $("main").html(await add());
       break;
     default:
       console.log("404 You've broken the internet");
