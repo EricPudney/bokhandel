@@ -1,4 +1,4 @@
-import authors from "./api/Authors.js";
+import authors from "./api/authors.js";
 import books from "./api/books.js";
 import users from "./api/users.js";
 

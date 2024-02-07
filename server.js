@@ -5,6 +5,7 @@ import apiRegister from "./api-register.js";
 
 const server = express();
 server.use(express.json());
+server.use(express.static("/"));
 
 server.use(
   session({
@@ -31,7 +32,7 @@ mongoose.connect(
   "mongodb+srv://ericpudney:Sonnet130@cluster0.jidr2xq.mongodb.net/Bokhandel"
 );
 
-apiRegister(server, mongoose);
+apiRegister(server);
 
 server.listen(port, () =>
   console.log(`Listening on port http://localhost:${port}`)
