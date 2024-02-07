@@ -29,7 +29,7 @@ server.get("/", (req, res) => {
 const port = 3000;
 
 mongoose.connect(
-  "mongodb+srv://ericpudney:Sonnet130@cluster0.jidr2xq.mongodb.net/Bokhandel"
+  "mongodb+srv://*****@cluster0.jidr2xq.mongodb.net/Bokhandel"
 );
 
 apiRegister(server);
