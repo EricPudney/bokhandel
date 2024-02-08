@@ -24,7 +24,7 @@ export default function (server) {
     const newAuthor = new Author({
       Name: req.body.Name,
       Age: req.body.Age,
-      Books: req.body.Books,
+      //Books: req.body.Books,
     });
     try {
       const result = await newAuthor.save();

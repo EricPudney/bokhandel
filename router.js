@@ -1,6 +1,7 @@
 import booklist from "./pages/booklist.js";
 import home from "./pages/home.js";
 import add from "./pages/add.js";
+import newauth from "./pages/newauth.js";
 
 async function route() {
   switch (location.hash.replace("#", "")) {
@@ -12,6 +13,9 @@ async function route() {
       break;
     case "add":
       $("main").html(await add());
+      break;
+    case "newauth":
+      $("main").html(await newauth());
       break;
     default:
       console.log("404 You've broken the internet");

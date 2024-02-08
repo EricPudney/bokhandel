@@ -28,9 +28,7 @@ server.get("/", (req, res) => {
 
 const port = 3000;
 
-mongoose.connect(
-  "mongodb+srv://*****@cluster0.jidr2xq.mongodb.net/Bokhandel"
-);
+mongoose.connect("mongodb+srv://*****@cluster0.jidr2xq.mongodb.net/Bokhandel");
 
 apiRegister(server);
 
