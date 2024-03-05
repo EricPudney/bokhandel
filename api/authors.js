@@ -24,16 +24,17 @@ export default function (server) {
     const newAuthor = new Author({
       Name: req.body.Name,
       Age: req.body.Age,
-      //Books: req.body.Books,
     });
     try {
       const result = await newAuthor.save();
 
-      const books = await Book.findById(req.body.Books);
-      books.Author_id.push(newAuthor._id);
-      await books.save();
-
-      res.status(201).json(result);
+      //      const books = await Book.findById(req.body.Books);
+      //      books.Author_id.push(newAuthor._id);
+      //      await books.save();
+      console.log(result);
+      res.status(201).json({
+        message: `New author ${newAuthor.Name} successfully added to the database.`,
+      });
     } catch (error) {
       res.status(500).json({ message: "Unable to create author." });
     }
@@ -57,11 +58,23 @@ export default function (server) {
 
   server.delete("/api/authors/:id", async (req, res) => {
     try {
+      const works = await Author.findById(req.params.id);
+      const deletedBooks = works.Books;
+      console.log(deletedBooks);
+      for (let item of deletedBooks) {
+        console.log(item);
+        let deletedBook = await Book.findByIdAndDelete(item);
+        console.log(deletedBook);
+        if (!deletedBook) {
+          console.log("can't find");
+        }
+      }
       const deletedAuthor = await Author.findByIdAndDelete(req.params.id);
       if (!deletedAuthor) {
         return res.status(404).json({ message: "Author not found" });
       }
-      res.json({ message: "Author deleted" });
+      console.log(deletedAuthor);
+      res.json({ message: `Author ${deletedAuthor.Name} deleted` });
     } catch (error) {
       res.status(500).json({ message: "It's all gone to hell" });
     }

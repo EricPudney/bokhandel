@@ -21,27 +21,28 @@ export default function (server) {
   });
 
   server.post("/api/books", async (req, res) => {
-    //   if (req.session.login) {
-    const newBook = new Book({
-      Title: req.body.Title,
-      Description: req.body.Description,
-      Author_id: req.body.Author_id,
-    });
-    try {
-      const result = await newBook.save();
+    if (req.session.login) {
+      const newBook = new Book({
+        Title: req.body.Title,
+        Description: req.body.Description,
+        Author_id: req.body.Author_id,
+      });
+      try {
+        await newBook.save();
+        const author = await Author.findById(req.body.Author_id);
+        author.Books.push(newBook._id);
+        await author.save();
 
-      const author = await Author.findById(req.body.Author_id);
-      author.Books.push(newBook._id);
-      await author.save();
-
-      res.status(201).json(result);
-    } catch (error) {
-      res.status(500).json({ message: "Unable to post book." });
-    }
-  }); /* else {
+        res
+          .status(201)
+          .json({ message: "Book successfully added to database." });
+      } catch (error) {
+        res.status(500).json({ message: "Unable to post book." });
+      }
+    } else {
       res.json({ message: "Please log in" });
     }
-  });*/
+  });
 
   server.put("/api/books/:id", async (req, res) => {
     try {
@@ -64,8 +65,9 @@ export default function (server) {
       const deletedBook = await Book.findByIdAndDelete(req.params.id);
       if (!deletedBook) {
         return res.status(404).json({ message: "Book not found" });
+      } else {
+        res.json(deletedBook);
       }
-      res.json({ message: "Book deleted" });
     } catch (error) {
       res.status(500).json({ message: "It's all gone to hell." });
     }

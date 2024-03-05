@@ -12,9 +12,15 @@ export default function (server) {
       username: req.body.username,
       password: getHash(req.body.password),
     });
+    if (User.findOne(User.username == newUser.username)) {
+      res.status(409).json({ message: "Sorry, that username already exsits." });
+      return;
+    }
     try {
       const savedUser = await newUser.save();
-      res.status(201).json(savedUser);
+      res.status(201).json({
+        message: `New user "${savedUser.username}" successfully registered.`,
+      });
     } catch (error) {
       res.status(500).json({ message: "Unable to create user." });
     }

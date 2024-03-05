@@ -1,0 +1,54 @@
+@import url("/pages/booklist.css");
+
+body {
+    font-family: "Lato";
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: rgb(202, 213, 224);
+}
+
+h1{
+    font-size: xx-large;
+}
+
+h2{
+    font-size: larger;
+    margin-bottom: 0.1rem;
+    margin-top: 0px;
+}
+
+main {
+    padding: 3rem;
+}
+
+nav {
+    background-color: rgb(6, 26, 46);
+    height: 4rem;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+nav > a {
+    color: rgb(202, 213, 224);
+    font-size: large;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+input, select {
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    margin-right: 2rem;
+}
+
+input[type=submit] {
+    cursor: pointer;
+    background-color: rgb(6, 26, 46);
+    color: rgb(202, 213, 224);
+    border: none;
+    border-radius: 1rem;
+    width: 8rem;
+}
